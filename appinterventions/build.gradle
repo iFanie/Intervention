@@ -12,7 +12,13 @@ sourceSets {
     }
 }
 
+jar {
+    manifest {
+        attributes("Lint-Registry-v2": "com.izikode.izilib.interventions.InterventionRegistry")
+    }
+}
+
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${ Version.Core.KOTLIN }"
+    compileOnly "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${ Version.Core.KOTLIN }"
+    compileOnly "com.android.tools.lint:lint-api:26.2.1"
 }

@@ -46,5 +46,5 @@ dependencies {
     implementation project(':intervention')
     kapt project(':interventioncompiler')
 
-    implementation project(':appinterventions')
+    lintChecks project(':appinterventions')
 }
