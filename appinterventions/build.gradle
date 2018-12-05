@@ -4,6 +4,14 @@ apply plugin: 'kotlin'
 sourceCompatibility = Version.Core.JAVA
 targetCompatibility = Version.Core.JAVA
 
+sourceSets {
+    main {
+        java {
+            srcDir "${buildDir.absolutePath}/generated/source/kaptKotlin/"
+        }
+    }
+}
+
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${ Version.Core.KOTLIN }"

@@ -3,6 +3,12 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 
+kapt {
+    arguments {
+        arg('interventionsModuleDir', project(':appinterventions').projectDir.absolutePath)
+    }
+}
+
 android {
     compileSdkVersion 28
 
