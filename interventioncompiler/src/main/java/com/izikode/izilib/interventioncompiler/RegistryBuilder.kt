@@ -22,8 +22,7 @@ class RegistryBuilder(private val issues: Array<String>) : AbstractKotlinClass()
     }.toString()
 
     override val sourceCode: String get() =
-
-        """package $packageName
+"""package $packageName
 
 class $simpleName : com.android.tools.lint.client.api.IssueRegistry() {
 
