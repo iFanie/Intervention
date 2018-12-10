@@ -17,12 +17,12 @@ buildscript {
                         MAVEN  : '2.0',
                         BINTRAY: '1.8.0',
                         JAVA   : '1.8',
-                        KOTLIN : '1.3.10'
+                        KOTLIN : '1.3.11'
                 ],
 
                 Dependency : [
                         COMPAT    : '28.0.0',
-                        KCOMPILER : '0.7'
+                        KCOMPILER : '0.8'
                 ]
         ]
     }
