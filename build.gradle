@@ -1,5 +1,25 @@
 buildscript {
     ext {
+        Bintray = [
+                GROUP_ID : 'com.izikode.izilib',
+
+                REPO : 'izilib',
+                NAME : 'intervention',
+
+                DESCRIPTION : 'Annotation based Android lint check generation',
+
+                WEBSITE : 'https://github.com/iFanie/Intervention',
+                GIT     : 'https://github.com/iFanie/Intervention.git',
+
+                DEV_ID    : 'iFanie',
+                DEV_NAME  : 'Fanie Veizis',
+                DEV_EMAIL : 'fanieveizis@gmail.com',
+
+                LICENCE     : 'The Apache Software License, Version 2.0',
+                LICENCE_URL : 'http://www.apache.org/licenses/LICENSE-2.0.txt',
+                LICENCES    : [ "Apache-2.0" ]
+        ]
+
         Version = [
                 Build      : [
                         CODE   : 1,
