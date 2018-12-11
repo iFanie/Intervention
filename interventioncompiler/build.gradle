@@ -1,0 +1,51 @@
+apply plugin: 'java-library'
+apply plugin: 'kotlin'
+
+ext {
+    bintrayRepo = Bintray.REPO
+    bintrayName = "${ Bintray.NAME }compiler"
+
+    publishedGroupId = Bintray.GROUP_ID
+    libraryName = Bintray.REPO
+    artifact = "${ Bintray.NAME }compiler"
+
+    libraryDescription = Bintray.DESCRIPTION
+
+    siteUrl = Bintray.WEBSITE
+    gitUrl = Bintray.GIT
+
+    libraryBuild = Version.Build.CODE
+    libraryVersion = Version.Build.getNAME()
+
+    developerId = Bintray.DEV_ID
+    developerName = Bintray.DEV_NAME
+    developerEmail = Bintray.DEV_EMAIL
+
+    licenseName = Bintray.LICENCE
+    licenseUrl = Bintray.LICENCE_NAME
+    allLicenses = Bintray.LICENCES
+}
+
+sourceCompatibility = Version.Core.JAVA
+targetCompatibility = Version.Core.JAVA
+
+compileKotlin {
+    kotlinOptions {
+        jvmTarget = Version.Core.JAVA
+    }
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${ Version.Core.KOTLIN }"
+    implementation "com.izikode.izilib:base-kotlin-compiler:${ Version.Dependency.KCOMPILER }"
+
+    implementation project(':intervention')
+}
+
+tasks.withType(Javadoc).all {
+    enabled = false
+}
+
+apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/installv1.gradle'
+apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/bintrayv1.gradle'

@@ -1,0 +1,24 @@
+apply plugin: 'java-library'
+apply plugin: 'kotlin'
+
+sourceCompatibility = Version.Core.JAVA
+targetCompatibility = Version.Core.JAVA
+
+sourceSets {
+    main {
+        java {
+            srcDir "${buildDir.absolutePath}/generated/source/kaptKotlin/"
+        }
+    }
+}
+
+jar {
+    manifest {
+        attributes("Lint-Registry-v2": "com.izikode.izilib.interventions.InterventionRegistry")
+    }
+}
+
+dependencies {
+    compileOnly "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${ Version.Core.KOTLIN }"
+    compileOnly "com.android.tools.lint:lint-api:26.2.1"
+}
