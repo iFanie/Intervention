@@ -1,7 +1,6 @@
 package com.izikode.izilib.interventioncompiler
 
 import com.izikode.izilib.basekotlincompiler.BaseKotlinCompiler
-import com.izikode.izilib.basekotlincompiler.component.CompilationRound
 import com.izikode.izilib.intervention.Intervene
 import java.io.File
 import kotlin.reflect.KClass
@@ -16,29 +15,31 @@ class InterventionCompiler : BaseKotlinCompiler() {
 
     private val interventionBuilders = mutableListOf<InterventionBuilder>()
 
-    override fun handle(compilationRound: CompilationRound) {
-        compilationRound.functionsWith(Intervene::class).forEach { interventionFunction ->
-            interventionBuilders.add(InterventionBuilder(
+    override val roundHandler: CompilationRoundHandler.() -> Unit = {
+        fetchFunctions(Intervene::class) {
+            it.forEach { interventionFunction ->
+                interventionBuilders.add(InterventionBuilder(
 
-                interventionFunction.annotation.name,
-                interventionFunction.annotation.warnAgainst,
-                interventionFunction.toString(),
-                interventionFunction.annotation.priority.value,
-                interventionFunction.annotation.type == Intervene.Type.ERROR
+                    interventionFunction.annotation.name,
+                    interventionFunction.annotation.warnAgainst,
+                    interventionFunction.toString(),
+                    interventionFunction.annotation.priority.value,
+                    interventionFunction.annotation.type == Intervene.Type.ERROR
 
-            ))
+                ))
+            }
         }
     }
 
-    override fun finally() {
-        compilationUtilities.classGenerator.apply {
-            interventionBuilders.forEach { interventionBuilder ->
-                generate(interventionBuilder)
-            }
+    override val finallyHandler: FinallyHandler.() -> Unit = {
+        generateClasses {
+            interventionBuilders.toTypedArray()
+        }
 
-            generate(RegistryBuilder(Array(interventionBuilders.size) { index ->
+        generateClass {
+            RegistryBuilder(Array(interventionBuilders.size) { index ->
                 interventionBuilders[index].issue
-            }))
+            })
         }
     }
 
