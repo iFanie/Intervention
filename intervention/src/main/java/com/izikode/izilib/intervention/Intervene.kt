@@ -8,6 +8,7 @@ annotation class Intervene(
     val warnAgainst: String,
     val priority: Priority = Priority.NORMAL,
     val type: Type = Type.WARNING
+
 ) {
 
     enum class Priority(val value: Int) {
