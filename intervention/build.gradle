@@ -32,6 +32,7 @@ targetCompatibility = Version.Core.JAVA
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${ Version.Core.KOTLIN }"
+    compileOnly "com.android.tools.lint:lint-api:${ Version.Dependency.LINT }"
 }
 
 tasks.withType(Javadoc).all {
