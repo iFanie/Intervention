@@ -18,11 +18,6 @@ abstract class BaseIntervention : Detector(), Detector.UastScanner {
     protected abstract val issue: Issue
 
     /**
-     * The name of the intervention.
-     */
-    abstract val interventionName: String
-
-    /**
      * The code that should be monitored and intervened upon.
      */
     abstract val intervenesOnUsageOf: String
