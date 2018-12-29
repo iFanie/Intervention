@@ -1,4 +1,9 @@
 # Intervention
+
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+[![Bintray](https://img.shields.io/badge/Bintray-0.3-lightgrey.svg)](https://dl.bintray.com/ifanie/izilib/com/izikode/izilib/intervention/0.3/)
+[![Android Arsenal]( https://img.shields.io/badge/Android%20Arsenal-Intervention-green.svg?style=flat )]( https://android-arsenal.com/details/1/7395 )
+
 ### Annotation based Android lint check generation
 Generate custom Android lint checks and have lint warn you about code you may be dealing with using Kotlin extensions or your own coding 
 conventions.
@@ -47,12 +52,12 @@ File -> New -> New Module... -> Java Library
 
 Intervention generates kotlin code, so you need to apply the Kotlin plugin in the newly created module and instruct the module to
 use Kotlin generated files. Also, the module must declate the Registry class for the lint checks it contains; the Registry is generated
-by Intervention. All in all, the Java
-module's gradle script should look like this:
+by Intervention. Finally it should have a dependency on Android Lint and the main Intervention project. All in all, the Java module's gradle script should look like this:
 ```groovy
 apply plugin: 'java-library'
 apply plugin: 'kotlin'
 
+/* Sets the JAVA compatibility */
 sourceCompatibility = '1.8'
 targetCompatibility = '1.8'
 
@@ -76,6 +81,7 @@ jar {
 dependencies {
     compileOnly "org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.3.11"
     compileOnly "com.android.tools.lint:lint-api:26.2.1"
+    compileOnly "com.izikode.izilib:intervention:0.3"
 }
 ```
 #### b. Android module
@@ -96,10 +102,10 @@ You must also add the Intervention dependencies in your Android module, as well 
 ```groovy
 dependencies {
     ...
-    implementation 'com.izikode.izilib:intervention:0.1'
-    kapt 'com.izikode.izilib:interventioncompiler:0.1'
+    implementation "com.izikode.izilib:intervention:0.3"
+    kapt "com.izikode.izilib:interventioncompiler:0.3"
 
-    lintChecks project(':appinterventions')
+    lintChecks project(":appinterventions")
 }
 ```
 ##### Again replace ```appinterventions``` with the name of your Java lint module.

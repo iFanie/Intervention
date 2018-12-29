@@ -24,39 +24,18 @@ class InterventionBuilder(
 """package $packageName
 
 import com.android.tools.lint.detector.api.*
-import org.jetbrains.uast.UClass
+import com.izikode.izilib.intervention.BaseIntervention
 import java.util.EnumSet
-import java.util.regex.Pattern
 
-class $simpleName : Detector(), Detector.UastScanner {
+class $simpleName : BaseIntervention() {
 
-    override fun getApplicableUastTypes() = listOf( UClass::class.java )
+    override val issue: Issue = ISSUE
 
-    override fun afterCheckFile(context: Context) {
-        val source = context.getContents().toString()
+    override val intervenesOnUsageOf: String = "$warnAgainst"
 
-        if (!source.contains("@Intervene")) {
-            val matcher = PATTERN.matcher(source)
-
-            while (matcher.find()) {
-                val location = Location.create(context.file, source, matcher.start(), matcher.end())
-
-                val fix = fix()
-                    .name("Replace \"$warnAgainst\"")
-                    .replace()
-                    .text(matcher.group(0))
-                    .with("$useInstead")
-                    .autoFix(false, false)
-                    .build()
-
-                context.report(ISSUE, location, "\"$warnAgainst\" should not be used directly.", fix)
-            }
-        }
-    }
+    override val correctUsage: String = "$useInstead"
 
     companion object {
-
-        private val PATTERN = Pattern.compile(Pattern.quote("$warnAgainst"))
 
         @JvmStatic val ISSUE = Issue.create(
             "$simpleName", "Warns against the usage of \"$warnAgainst\".",
