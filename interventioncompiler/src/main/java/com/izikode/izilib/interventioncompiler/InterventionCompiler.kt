@@ -20,15 +20,17 @@ class InterventionCompiler : BaseKotlinCompiler() {
     override val roundHandler: CompilationRoundHandler.() -> Unit = {
         fetchFunctions(Intervene::class) {
             it.forEach { interventionFunction ->
-                interventionBuilders.add(InterventionBuilder(
+                interventionFunction.annotation.let { data ->
+                    interventionBuilders.add(InterventionBuilder(
 
-                    interventionFunction.annotation.name,
-                    interventionFunction.annotation.warnAgainst,
-                    interventionFunction.toString(),
-                    interventionFunction.annotation.priority.value,
-                    interventionFunction.annotation.type == Intervene.Type.ERROR
+                        data.name,
+                        data.warnAgainst,
+                        if (data.useInstead.isNotEmpty()) data.useInstead else interventionFunction.toString(),
+                        data.priority.value,
+                        data.type == Intervene.Type.ERROR
 
-                ))
+                    ))
+                }
             }
         }
     }
