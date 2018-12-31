@@ -3,14 +3,16 @@ package com.izikode.izilib.interventioncompiler
 import com.izikode.izilib.basekotlincompiler.BaseKotlinCompiler
 import com.izikode.izilib.intervention.Intervene
 import java.io.File
+import javax.annotation.processing.SupportedOptions
 import kotlin.reflect.KClass
 
+@SupportedOptions(InterventionCompiler.MODULE_DIR_ARGUMENT)
 class InterventionCompiler : BaseKotlinCompiler() {
 
     override val processes: Array<KClass<out Any>> = arrayOf( Intervene::class )
 
     override fun getGeneratedSourceDirectory(options: Map<String, String>) =
-        options[PROJECT_ARGUMENT]?.let { File("$it/$GENERATED_DIRECTORY") } ?:
+        options[MODULE_DIR_ARGUMENT]?.let { File("$it/$GENERATED_DIRECTORY") } ?:
         super.getGeneratedSourceDirectory(options)
 
     private val interventionBuilders = mutableListOf<InterventionBuilder>()
@@ -45,7 +47,7 @@ class InterventionCompiler : BaseKotlinCompiler() {
 
     companion object {
 
-        const val PROJECT_ARGUMENT = "interventionsModuleDir"
+        const val MODULE_DIR_ARGUMENT = "interventionsModuleDir"
         const val GENERATED_DIRECTORY = "build/generated/source/kaptKotlin"
 
     }
