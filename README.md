@@ -1,7 +1,7 @@
 # Intervention
 
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
-[![Bintray](https://img.shields.io/badge/Bintray-0.3-lightgrey.svg)](https://dl.bintray.com/ifanie/izilib/com/izikode/izilib/intervention/0.3/)
+[![Bintray](https://img.shields.io/badge/Bintray-0.4-lightgrey.svg)](https://dl.bintray.com/ifanie/izilib/com/izikode/izilib/intervention/0.4/)
 [![Android Arsenal]( https://img.shields.io/badge/Android%20Arsenal-Intervention-green.svg?style=flat )]( https://android-arsenal.com/details/1/7395 )
 
 ### Annotation based Android lint check generation
@@ -81,7 +81,7 @@ jar {
 dependencies {
     compileOnly "org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.3.11"
     compileOnly "com.android.tools.lint:lint-api:26.2.1"
-    compileOnly "com.izikode.izilib:intervention:0.3"
+    compileOnly "com.izikode.izilib:intervention:0.4"
 }
 ```
 #### b. Android module
@@ -102,8 +102,8 @@ You must also add the Intervention dependencies in your Android module, as well 
 ```groovy
 dependencies {
     ...
-    implementation "com.izikode.izilib:intervention:0.3"
-    kapt "com.izikode.izilib:interventioncompiler:0.3"
+    implementation "com.izikode.izilib:intervention:0.4"
+    kapt "com.izikode.izilib:interventioncompiler:0.4"
 
     lintChecks project(":appinterventions")
 }
@@ -124,13 +124,14 @@ Another example is the Fragment factory function from the sample project.
 ```kotlin
 class MainFragment : Fragment() {
     companion object {
-        @Intervene(name = "MainFragmentInitialization", warnAgainst = "MainFragment()")
+        @Intervene(name = "MainFragmentInitialization", warnAgainst = "MainFragment()", useInstead = "MainFragment.newInstance()")
         fun newInstance() = MainFragment()
     }
 }
 ```
 - ```name``` is the lint check's name and ID. 
 - ```warnAgainst``` is the piece of code that when matched will trigger the warning.
+- ```useInstead``` is the code that replaces the above. When left empty (default) the compiler will provide the function signature in the report.
 - ```priority``` can be either Priority.LOW, Priority.NORMAL (default) or Priority.HIGH.
 - ```type``` can be either Type.WARNING (default) or Type.ERROR. *Error stops the build*.
 
