@@ -7,7 +7,7 @@ class MainFragment : Fragment() {
 
     companion object {
 
-        @Intervene(name = "MainFragmentInitialization", warnAgainst = "MainFragment()")
+        @Intervene(name = "MainFragmentInitialization", warnAgainst = "MainFragment()", useInstead = "MainFragment.newInstance()")
         fun newInstance() = MainFragment()
 
     }
