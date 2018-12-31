@@ -6,6 +6,7 @@ annotation class Intervene(
 
     val name: String,
     val warnAgainst: String,
+    val useInstead: String = "",
     val priority: Priority = Priority.NORMAL,
     val type: Type = Type.WARNING
 
