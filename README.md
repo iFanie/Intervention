@@ -85,7 +85,7 @@ dependencies {
 }
 ```
 #### b. Android module
-Intevention uses Kotlin code generation, so you must apply the Kapt plugin on your Android module. Also, you must provide the annotation
+Intervention uses Kotlin code generation, so you must apply the Kapt plugin on your Android module. Also, you must provide the annotation
 processor with the path to your Java lint module created above. To do this modify your Android gradle script and add the following:
 ```groovy
 apply plugin: 'kotlin-kapt'
